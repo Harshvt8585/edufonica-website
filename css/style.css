@@ -1,0 +1,661 @@
+/* =================================================================
+   1. CSS VARIABLES — our brand colors and fonts, defined ONCE here.
+   Why: instead of typing "#033999" everywhere, we type var(--blue).
+   If the client ever changes their brand color, we edit ONE line here
+   instead of hunting through hundreds of lines of CSS.
+   ================================================================= */
+:root {
+  --blue: #033999;
+  --blue-dark: #022a73;
+  --orange: #F58634;
+  --ink: #0A1628;        /* near-black, used for body text */
+  --cream: #FBF9F6;      /* warm off-white background */
+  --blue-tint: #EEF2FA;  /* very light blue, for section backgrounds */
+  --white: #FFFFFF;
+ 
+  --font-heading: 'Poppins', sans-serif;
+  --font-body: 'Inter', sans-serif;
+}
+ 
+/* =================================================================
+   2. RESET — every browser has different default spacing/styles.
+   This wipes that out so we start from a clean, predictable slate.
+   ================================================================= */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  /* box-sizing: border-box means: when we set an element's width,
+     padding and border are INCLUDED in that width, not added on top.
+     Without this, sizing elements becomes confusing math. Always use it. */
+}
+ 
+/* =================================================================
+   3. BASE BODY STYLES — applies to the whole page by default
+   ================================================================= */
+body {
+  font-family: var(--font-body);
+  color: var(--ink);
+  background-color: var(--cream);
+  line-height: 1.6; /* space between lines of text, easier to read */
+}
+ 
+h1, h2, h3, h4 {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.text-center { text-align: center; }
+.bg-tint { background-color: var(--blue-tint); }
+ 
+a {
+  text-decoration: none; /* removes the default underline */
+  color: inherit;        /* links use whatever color their parent has,
+                             instead of the browser's default blue */
+}
+ 
+img {
+  max-width: 100%;   /* images never overflow their container */
+  display: block;
+}
+ 
+ul {
+  list-style: none;  /* removes the default bullet points */
+}
+ 
+/* =================================================================
+   4. CONTAINER — a reusable wrapper that centers content and
+   stops it from stretching edge-to-edge on wide screens.
+   ================================================================= */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;     /* centers it horizontally */
+  padding: 0 24px;    /* breathing room on the sides */
+}
+ 
+/* =================================================================
+   5. HEADER & NAV
+   ================================================================= */
+.site-header {
+  background-color: var(--white);
+  border-bottom: 1px solid #E5E5E5;
+  position: sticky;   /* sticks to the top of the screen when scrolling */
+  top: 0;
+  z-index: 100;        /* keeps header above other content when stacked */
+}
+ 
+.header-inner {
+  display: flex;              /* THIS is the key change: flex puts
+                                  children in a row instead of stacked */
+  align-items: center;        /* vertically centers logo/nav/button */
+  justify-content: space-between; /* pushes logo left, nav middle, CTA right */
+  padding-top: 16px;
+  padding-bottom: 16px;
+}
+ 
+.logo-img {
+  height: 48px;   /* controls logo size — width adjusts automatically
+                      because of "img { max-width: 100% }" we set earlier */
+}
+ 
+.main-nav ul {
+  display: flex;       /* nav links in a row, not stacked */
+  gap: 32px;           /* even spacing between each link */
+}
+ 
+.main-nav a {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: 15px;
+  color: var(--ink);
+  transition: color 0.2s ease; /* smooth color change on hover */
+}
+ 
+.main-nav a:hover,
+.main-nav a.active {
+  color: var(--blue);
+}
+
+.menu-toggle {
+  display: none; /* Hidden on desktop */
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+}
+
+.menu-toggle .bar {
+  width: 25px;
+  height: 3px;
+  background-color: var(--blue);
+  border-radius: 2px;
+  transition: 0.3s;
+}
+
+/* Header Responsive */
+@media (max-width: 900px) {
+  .menu-toggle {
+    display: flex;
+  }
+  
+  .main-nav {
+    display: none; /* Hidden by default on mobile */
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background: var(--white);
+    border-bottom: 1px solid #E5E5E5;
+    padding: 20px 0;
+  }
+
+  .main-nav.active {
+    display: block;
+  }
+
+  .main-nav ul {
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+  
+  .header-cta {
+    display: none; /* Hide button on very small screens to fit logo and toggle */
+  }
+}
+ 
+/* =================================================================
+   6. BUTTONS — reusable across the whole site
+   ================================================================= */
+.btn {
+  display: inline-block;
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: 14px;
+  padding: 12px 24px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.15s ease;
+}
+ 
+.btn-primary {
+  background-color: var(--orange);
+  color: var(--white);
+}
+ 
+.btn-primary:hover {
+  background-color: #e0741f; /* slightly darker orange on hover */
+  transform: translateY(-1px); /* tiny lift effect */
+}
+ 
+/* =================================================================
+   7. FOOTER
+   ================================================================= */
+.site-footer {
+  background-color: var(--blue-dark);
+  color: var(--white);
+  padding: 48px 0;
+  text-align: center;
+  margin-top: 80px;
+}
+ 
+.footer-logo {
+  height: 40px;
+  margin: 0 auto 16px;
+  /* This logo has dark blue in it which will blend into our dark footer.
+     We'll revisit this — for now let's see how it looks. */
+}
+ 
+.footer-tagline {
+  max-width: 480px;
+  margin: 0 auto 16px;
+  font-size: 14px;
+  color: #C5D2E8; /* lighter, muted blue-white for less emphasis */
+}
+ 
+.footer-copy {
+  font-size: 13px;
+  color: #8FA3C9;
+}
+ 
+/* =================================================================
+   8. HERO SECTION
+   ================================================================= */
+.hero {
+  background-color: var(--blue-tint);
+  padding: 96px 0 140px;
+  position: relative;
+  /* removed overflow:hidden — it was clipping our angled ::after shape */
+}
+ 
+.hero::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;       /* -1px avoids a hairline gap caused by sub-pixel rounding */
+  left: 0;
+  width: 100%;
+  height: 80px;
+  background-color: var(--cream);
+  clip-path: polygon(0 100%, 100% 0%, 100% 100%);
+  /* clip-path cuts this shape into a diagonal triangle, creating the
+     angled "page corner" edge where the hero meets the next section */
+}
+ 
+.hero-inner {
+  display: flex;
+  align-items: center;
+  gap: 48px;
+}
+ 
+.hero-text {
+  flex: 1;            /* text column takes up available space */
+  max-width: 560px;
+}
+ 
+.hero-graphic {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+ 
+.hero-svg {
+  width: 100%;
+  max-width: 380px;
+}
+ 
+.hero-subheadline {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  color: var(--orange);
+  font-size: 15px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 16px;
+}
+ 
+.hero-headline {
+  font-size: 44px;
+  color: var(--blue);
+  margin-bottom: 24px;
+}
+ 
+.hero-body {
+  font-size: 17px;
+  color: #4A5568;
+  margin-bottom: 32px;
+}
+ 
+.hero-cta {
+  font-size: 16px;
+  padding: 14px 32px;
+  box-shadow: 0 12px 24px -8px rgba(245, 134, 52, 0.45);
+  /* a soft, color-matched shadow beneath the button gives it a
+     "lifted off the page" premium feel, instead of looking flat */
+}
+ 
+/* Below 900px screen width (tablets/phones), stack the hero
+   columns instead of side-by-side, and center the text */
+@media (max-width: 900px) {
+  .hero-inner {
+    flex-direction: column;
+    text-align: center;
+  }
+  .hero-text {
+    max-width: 100%;
+  }
+}
+
+/* =================================================================
+   10. INTERIOR PAGES: HERO & GENERAL
+   ================================================================= */
+.page-hero {
+  padding: 80px 0 60px;
+  background-color: var(--blue-tint);
+  position: relative;
+}
+
+.page-headline {
+  font-size: 40px;
+  color: var(--blue);
+  margin-bottom: 16px;
+}
+
+.page-subheadline {
+  font-size: 18px;
+  color: #4A5568;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.section-title {
+  font-size: 32px;
+  color: var(--blue);
+  margin-bottom: 16px;
+}
+
+.section-subtitle {
+  font-size: 16px;
+  color: #4A5568;
+  max-width: 700px;
+  margin: 0 auto 48px;
+}
+
+/* =================================================================
+   11. ABOUT PAGE
+   ================================================================= */
+.about-intro {
+  padding: 80px 0;
+}
+
+.intro-content {
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+  font-size: 18px;
+  color: #4A5568;
+}
+
+.intro-content p {
+  margin-bottom: 24px;
+}
+
+.intro-quote {
+  font-family: var(--font-heading);
+  font-size: 24px;
+  color: var(--orange);
+  font-weight: 600;
+  margin-top: 40px;
+  font-style: italic;
+}
+
+.about-process {
+  padding: 80px 0;
+}
+
+.process-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 32px;
+}
+
+.process-card {
+  background: var(--white);
+  padding: 32px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  transition: transform 0.2s ease;
+}
+
+.process-card:hover {
+  transform: translateY(-4px);
+}
+
+.process-num {
+  font-family: var(--font-heading);
+  font-size: 48px;
+  font-weight: 800;
+  color: var(--blue-tint);
+  line-height: 1;
+  margin-bottom: 16px;
+}
+
+.process-card h3 {
+  color: var(--blue);
+  margin-bottom: 12px;
+  font-size: 20px;
+}
+
+.process-card p {
+  color: #4A5568;
+  font-size: 15px;
+}
+
+.about-why {
+  padding: 80px 0;
+}
+
+.why-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 32px;
+  margin-top: 48px;
+}
+
+.why-card {
+  background: var(--white);
+  padding: 32px;
+  border-radius: 8px;
+  border: 1px solid #E5E5E5;
+  text-align: center;
+}
+
+.icon-placeholder {
+  width: 48px;
+  height: 48px;
+  background-color: var(--orange);
+  border-radius: 50%;
+  margin: 0 auto 16px;
+  opacity: 0.2; /* A subtle placeholder since we don't have SVGs for these yet */
+}
+
+.why-card h3 {
+  color: var(--blue);
+  margin-bottom: 12px;
+  font-size: 18px;
+}
+
+.why-card p {
+  color: #4A5568;
+  font-size: 14px;
+}
+
+/* =================================================================
+   12. SERVICES PAGE
+   ================================================================= */
+.services-list {
+  padding: 80px 0;
+}
+
+.services-filter-container {
+  max-width: 600px;
+  margin: 0 auto 48px;
+}
+
+.search-input {
+  width: 100%;
+  padding: 16px 24px;
+  font-family: var(--font-body);
+  font-size: 16px;
+  border: 2px solid #E5E5E5;
+  border-radius: 30px;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.search-input:focus {
+  border-color: var(--blue);
+}
+
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 32px;
+}
+
+.service-card {
+  background: var(--white);
+  padding: 32px;
+  border-radius: 8px;
+  border-top: 4px solid var(--blue);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+}
+
+.service-card h3 {
+  color: var(--blue);
+  margin-bottom: 12px;
+  font-size: 18px;
+}
+
+.service-card p {
+  color: #4A5568;
+  font-size: 15px;
+}
+
+.expertise-area {
+  padding: 80px 0;
+}
+
+.chip-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
+  margin-top: 32px;
+}
+
+.chip {
+  background-color: var(--blue-tint);
+  color: var(--blue-dark);
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 500;
+  border: 1px solid #D5E0F2;
+}
+
+/* =================================================================
+   13. CONTACT PAGE
+   ================================================================= */
+.contact-section {
+  padding: 80px 0;
+}
+
+.contact-inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  align-items: flex-start;
+}
+
+@media (max-width: 900px) {
+  .contact-inner {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+}
+
+.contact-details {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.detail-box {
+  background: var(--white);
+  padding: 24px;
+  border-radius: 8px;
+  border-left: 4px solid var(--orange);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+}
+
+.detail-box h3 {
+  color: var(--blue);
+  font-size: 18px;
+  margin-bottom: 8px;
+}
+
+.detail-box p {
+  color: var(--ink);
+  font-size: 15px;
+}
+
+.muted-text {
+  color: #718096;
+  font-size: 13px;
+}
+
+.highlights-box {
+  border-left: none;
+  background: var(--blue);
+  color: var(--white);
+  text-align: center;
+}
+
+.highlights-box p {
+  color: var(--white);
+  font-size: 16px;
+}
+
+.contact-form-wrapper {
+  background: var(--white);
+  padding: 40px;
+  border-radius: 8px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+}
+
+.form-group {
+  margin-bottom: 24px;
+}
+
+.form-group label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: var(--blue-dark);
+  font-size: 14px;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 14px;
+  font-family: var(--font-body);
+  border: 1px solid #E5E5E5;
+  border-radius: 6px;
+  outline: none;
+  font-size: 15px;
+  transition: border-color 0.2s ease;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  border-color: var(--blue);
+}
+
+.submit-btn {
+  width: 100%;
+  padding: 16px;
+  font-size: 16px;
+}
+
+.form-feedback {
+  margin-top: 16px;
+  font-size: 14px;
+  text-align: center;
+  font-weight: 500;
+}
+
+.form-feedback.success { color: #38A169; }
+.form-feedback.error { color: #E53E3E; }
+
+/* =================================================================
+   9. SCROLL REVEAL
+   ================================================================= */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+ 
+.reveal.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+ 
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
