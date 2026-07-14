@@ -2,7 +2,7 @@
 
 > **A Modern, Fully Responsive Single-Page Website** showcasing professional web design & development skills using vanilla HTML, CSS, and JavaScript.
 
-A sleek, production-ready website for **Edufonica Solutions** — India's trusted education growth consultancy helping schools and colleges start, scale, and digitize. Built with **zero frameworks**, pure web standards, and cutting-edge UI/UX principles.
+A sleek, production-ready website for **Edufonica Solutions** — India's trusted education growth consultancy helping schools and colleges start, scale, and digitize. Built with **zero frameworks**, leveraging modern web standards for performance and accessibility.
 
 ---
 
@@ -11,9 +11,7 @@ A sleek, production-ready website for **Edufonica Solutions** — India's truste
 🔗 **[Visit Live Site](https://edufonica-website.vercel.app)**
 
 ### Preview
-| Desktop | Mobile |
-|---------|--------|
-| ![Hero Section](images/screenshot-hero.png) | ![Mobile View](images/Screenshot_20260715_011301.png) |
+![Hero Section](images/screenshot-hero.png)
 
 ---
 
